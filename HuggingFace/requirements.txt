@@ -2,3 +2,4 @@ sentencepiece
 huggingface_hub
 transformers[torch]
 joblib
+protobuf
