@@ -1,5 +1,9 @@
 # 加载模型和tokenizer
 from transformers import AutoTokenizer, LlamaForCausalLM
+import os 
+
+MODEL = os.environ.get('MODEL_LLAMA', './model')
+print(f"try load model @{MODEL}")
 
 model = LlamaForCausalLM.from_pretrained(MODEL)
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
