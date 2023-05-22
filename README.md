@@ -5,6 +5,8 @@
 ## 离线部署
 
 基础模型： LLaMA
+默认的huggingface 离线路径为： `/workspace/.cache/huggingface/hub`
+使用huggingface 离线模式，配置： `TRANSFORMERS_OFFLINE=1`
 
 > 也可以基于他人已经转换好的模型，例如 `decapoda-research/llama-7b-hf`（也有其他参数量级模型）
 

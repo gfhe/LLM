@@ -1,6 +1,8 @@
 FROM python:3.10
+
 ENV HUGGINGFACE_HUB_CACHE="/workspace/.cache/huggingface/hub"
 ENV MODEL_LLAMA="decapoda-research/llama-7b-hf"
+
 WORKDIR /workspace
 COPY requirements.txt /tmp/requirements.txt
 
