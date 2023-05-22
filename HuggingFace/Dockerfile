@@ -9,8 +9,8 @@ RUN pip install --upgrade pip && \
     rm -rf /tmp/requirements.txt && \
     apt-get clean && rm -rf /var/lib/apt/lists/*. && \
     pip cache purge && \
-    mkdir tools examples && \
+    mkdir tools example && \
     wget -P tools https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/llama/convert_llama_weights_to_hf.py
 
-COPY run.py /workspace/examples/start.py
+COPY run.py /workspace/example/start.py
 # RUN python -c "from transformers import pipeline; print(pipeline('sentiment-analysis')('we love you'))"
