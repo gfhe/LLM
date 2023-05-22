@@ -1,8 +1,10 @@
 FROM hgfkeep/llama:hf_torch_chat
 
 COPY dev_requirements.txt /tmp/requirements.txt
-COPY jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
-
 RUN pip install -r /tmp/requirements.txt && \
     rm -rf /tmp/requirements.txt
+
+COPY jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
+COPY jupyter_notebook_config.json /root/.jupyter/jupyter_notebook_config.json
+
 
