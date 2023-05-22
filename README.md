@@ -25,7 +25,7 @@
     Saving in the Transformers format.
     Saving a LlamaTokenizerFast to output.
     ```
-2. 运行测试代码：`MODEL_LLAMA=./output python examples/start.py`
+2. 运行测试代码：`MODEL_LLAMA=./output python example/start.py`
     * `MODEL_LLAMA`： 模型名/路径；
 
 ## 开发环境说明
