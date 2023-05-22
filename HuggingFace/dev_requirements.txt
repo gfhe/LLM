@@ -13,3 +13,4 @@ jupyterlab==3.6.3
 jupyterlab-git==0.41.0
 jupyterlab-pygments==0.2.2
 jupyterlab_server==2.22.1
+ipywidgets
