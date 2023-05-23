@@ -17,8 +17,12 @@ regex==2023.3.23
 requests==2.28.2
 sentencepiece==0.1.98
 tokenizers==0.13.3
-torch==1.13.1
 tqdm==4.65.0
 transformers==4.28.0
 typing_extensions==4.5.0
 urllib3==1.26.15
+
+# 分布式训练
+accelerate
+# 指令优化
+peft

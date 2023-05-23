@@ -6,9 +6,11 @@ ENV MODEL_LLAMA="decapoda-research/llama-7b-hf"
 WORKDIR /workspace
 COPY requirements.txt /tmp/requirements.txt
 
+# torch 使用了外部url， 单独安装
 RUN pip install --upgrade pip && \
-    pip install -r /tmp/requirements.txt && \
+    pip install --no-cache-dir -r /tmp/requirements.txt && \
     rm -rf /tmp/requirements.txt && \
+    pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*. && \
     pip cache purge && \
     mkdir tools example && \
