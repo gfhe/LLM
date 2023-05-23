@@ -10,7 +10,7 @@ print(f"try load model @{MODEL}, device={device}")
 model = LlamaForCausalLM.from_pretrained(MODEL)
 tokenizer = AutoTokenizer.from_pretrained(MODEL)
 model.to(device)
-tokenizer.to(device)
+# tokenizer.to(device)
 
 prompt = input("[You]: ")
 
