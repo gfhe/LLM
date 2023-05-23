@@ -10,5 +10,7 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt && \
 RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py && \
     wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
 
+RUN apt-get install tmux vim
+
 # COPY jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
 # COPY jupyter_notebook_config.json /root/.jupyter/jupyter_notebook_config.json
