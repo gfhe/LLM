@@ -1,8 +1,12 @@
 FROM hgfkeep/llm:hf-cuda11.8-torch11.4
 
+RUN apt-get update && apt-get install -y zsh
+RUN sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN sed -i 's/ZSH_THEME="robbyrbob"/ZSH_THEME="ys"/g' ~/.zshrc
+
 COPY dev_requirements.txt /tmp/requirements.txt
+
 COPY jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
-COPY .dev_bashrc /root/.bashrc
 
 # 安装packages
 RUN apt-get update && apt-get install -y --no-install-recommends \

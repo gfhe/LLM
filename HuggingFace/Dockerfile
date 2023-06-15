@@ -9,12 +9,8 @@ ENV HUGGINGFACE_HUB_CACHE="/workspace/.cache/huggingface/hub"
 WORKDIR /workspace
 
 # 本地文件
+COPY .bashrc /root/.bashrc
 COPY requirements.txt /tmp/requirements.txt
-
-# apt install
-# RUN apt-get update && \
-#     apt-get install -y vim tmux && \
-#     apt-get clean && rm -rf /var/lib/apt/lists/*.
 
 # install python libs
 RUN pip install --no-cache-dir -r /tmp/requirements.txt && \

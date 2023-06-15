@@ -25,10 +25,10 @@
     Saving in the Transformers format.
     Saving a LlamaTokenizerFast to output.
     ```
-2. 运行测试代码：`MODEL_LLAMA=./output python examples/start.py`
+2. 运行测试代码：`MODEL_LLAMA=./output python example/start.py`
     * `MODEL_LLAMA`： 模型名/路径；
-
 
 ## 开发环境说明
 
 启动： `docker run -p 18888:8888 hgfkeep/llama:hf_torch_chat_dev jupyter-lab`
+默认密码： hgfgood
