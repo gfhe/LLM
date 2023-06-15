@@ -1,8 +1,14 @@
-FROM hgfkeep/llama:hf_torch_chat
+FROM hgfkeep/llm:hf-cuda11.8-torch11.4
 
 COPY dev_requirements.txt /tmp/requirements.txt
 COPY jupyter_lab_config.py /root/.jupyter/jupyter_lab_config.py
+COPY .dev_bashrc /root/.bashrc
 
-RUN pip install -r /tmp/requirements.txt && \
+# 安装packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    net-tools 
+
+# 安装开发库
+RUN pip install --no-cache-dir -r /tmp/requirements.txt && \
     rm -rf /tmp/requirements.txt
-
+    

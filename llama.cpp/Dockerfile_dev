@@ -1,0 +1,9 @@
+FROM hgfkeep/llm:hf-cuda11.8-torch11.4-dev
+
+
+RUN git clone https://github.com/ggerganov/llama.cpp
+RUN git clone https://github.com/ymcui/Chinese-LLaMA-Alpaca
+RUN cd llama.cpp && make
+
+# 配置工作目录为llama.cpp
+# WORKDIR 

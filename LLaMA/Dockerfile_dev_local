@@ -1,0 +1,7 @@
+FROM hgfkeep/llm:hf-cuda11.8-torch11.4-dev-llama
+
+# local jupyter
+RUN rm -rf /root/.jupyter/jupyter_lab_config.py && \
+    mkdir /etc/jupyter/ && \
+    wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py && \
+    wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js

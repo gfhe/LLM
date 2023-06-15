@@ -1,0 +1,5 @@
+FROM hgfkeep/llm:hf-cuda11.8-torch11.4-dev
+
+# 代码
+COPY tools /workspace/tools
+COPY example /workspace/example
