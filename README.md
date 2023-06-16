@@ -1,13 +1,27 @@
 # LLM
 
-基于 huggingface 框架，私有化LLM 训练和部署方案
+基于 HuggingFace 套件的 私有化 LLM 训练和部署方案。
 
-## 离线部署
+本工程主要包含如下几个部分：
+1. `HuggingFace`：基于HuggingFace套件的通用LLM 训练、开发、运行环境
+2. `model`：特定大模型的训练、开发、运行环境（不包含模型，仅包含代码）
+    1. `LLaMA`： 原始LLaMA的相关代码和脚本
+3. `inference`：推理环境
+    1. huggingface：HuggingFace 原生的推理，用于简单测试。
+    2. llama.cpp：支持模型量化，高效的LLM部署和推理环境。
+    3. privateGPT：
 
-基础模型： LLaMA
-默认的huggingface 离线路径为： `/workspace/.cache/huggingface/hub`
-使用huggingface 离线模式，配置： `TRANSFORMERS_OFFLINE=1`
+## HuggingFace 环境说明
 
+* 默认的huggingface 离线路径为： `/workspace/.cache/huggingface/hub`
+* 使用huggingface 离线模式，配置： `TRANSFORMERS_OFFLINE=1`
+
+
+## 模型
+
+### LLaMA
+
+原生的LLaMA模型参数结构HuggingFace 不支持，需要进行模型转换，代码为 `tools/convert_llama_weights_to_hf.py`
 > 也可以基于他人已经转换好的模型，例如 `decapoda-research/llama-7b-hf`（也有其他参数量级模型）
 
 测试部署方案步骤：
