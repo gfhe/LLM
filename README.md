@@ -4,8 +4,16 @@
 
 本工程主要包含如下几个部分：
 1. `HuggingFace`：基于HuggingFace套件的通用LLM 训练、开发、运行环境
+    - pytorch 1.14.0a0+410ce96
+    - cuda 11.8
+    - transformers 
+    - jupyterlab[dev, 密码：`hgfgood`]
+    > 注意需要Nvidia drive 版本 > 450.*
 2. `model`：特定大模型的训练、开发、运行环境（不包含模型，仅包含代码）
     1. `LLaMA`： 原始LLaMA的相关代码和脚本
+        0. 原始LLaMA模型下载脚本
+        1. 权重结构转换脚本
+        2. 模型运行例子
 3. `inference`：推理环境
     1. huggingface：HuggingFace 原生的推理，用于简单测试。
     2. llama.cpp：支持模型量化，高效的LLM部署和推理环境。
