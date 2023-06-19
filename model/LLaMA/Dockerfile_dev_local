@@ -5,3 +5,6 @@ RUN rm -rf /root/.jupyter/jupyter_lab_config.py && \
     mkdir /etc/jupyter/ && \
     wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py && \
     wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
+
+# 自动接受任何主机密钥，而不需要用户手动确认
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
