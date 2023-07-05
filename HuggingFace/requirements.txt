@@ -7,3 +7,4 @@ tokenizers>=0.13.3
 huggingface-hub
 datasets
 deepspeed
+bitsandbytes

@@ -8,6 +8,7 @@
     - cuda 11.8
     - transformers 
     - jupyterlab[dev, 密码：`hgfgood`]
+    - sshd [dev, root 密码：`hgfgood`]
     > 注意需要Nvidia drive 版本 > 450.*
 2. `model`：特定大模型的训练、开发、运行环境（不包含模型，仅包含代码）
     1. `LLaMA`： 原始LLaMA的相关代码和脚本
