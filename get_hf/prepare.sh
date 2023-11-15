@@ -19,7 +19,7 @@ repo_id="$repo_namespace/$repo_name"
 
 # default clone model/datasets
 ##################################################
-git clone $REPO_URL $DEST_PATH
+# git clone $REPO_URL $DEST_PATH
 
 # custome process
 # !!!!! comment default process first!!!!!!
