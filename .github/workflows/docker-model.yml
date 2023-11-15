@@ -35,8 +35,8 @@ jobs:
           #!/bin/bash
           lines=()
           # 读取文本文件的每一行数据
-          mapfile -t lines < "${{ env.TO_GET_FILE }}"
-          for line in "${lines[@]}"
+          mapfile -t line_arr < "${{ env.TO_GET_FILE }}"
+          for line in "${line_arr[@]}"
           do
               # trim line
               line=$(echo $line |sed -e 's/^[[:space:]]*//')
