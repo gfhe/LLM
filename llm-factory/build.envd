@@ -1,0 +1,50 @@
+# syntax=v1
+def dependencies():
+  install.conda()
+  install.python(version="3.10")
+  install.python_packages(name = [
+    "torch>=1.13.1",
+    "transformers==4.33.2",
+    "datasets>=2.12.0",
+    "accelerate>=0.21.0",
+    "peft>=0.4.0",
+    "trl>=0.7.2",
+    "scipy",
+    "sentencepiece",
+    "protobuf",
+    "tiktoken",
+    "deepspeed",
+    "torchvision",
+    "bitsandbytes",
+  ])
+  config.jupyter(token="hgfgood", port=8000)
+  run(commands=["git clone https://github.com/hiyouga/LLaMA-Factory.git"])
+
+def build():
+  base(image="nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04", dev=True)
+  dependencies()
+  install.python_packages(name = [
+    "fire",
+    "jieba",
+    "rouge-chinese",
+    "nltk",
+    "gradio==3.38.0",
+    "pydantic==1.10.11",
+    "matplotlib",
+    "huggingface_hub",
+  ])
+  shell("zsh")
+  config.repo(url="hgfkeep/vllm-factory:0.2-dev", description="vllm factory dev env, cudnn8, python3.10")
+
+def serve():
+  base(image="nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04", dev=False)
+  install.apt_packages(name = [
+    "git"
+  ])
+  dependencies()
+  install.python_packages(name = [
+    "uvicorn",
+    "fastapi==0.95.1",
+    "sse-starlette",
+  ])
+  config.repo(url="hgfkeep/vllm-factory:0.2-runtime", description="vllm factory runtime env, cudd8, python3.10")

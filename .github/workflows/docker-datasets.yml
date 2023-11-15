@@ -1,0 +1,114 @@
+name: Datasets
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "get_hf/to_get_datasets.txt" ]
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: docker.io
+  # github.repository as <account>/<repo>
+  TO_GET_FILE: get_hf/to_get_datasets.txt
+  REPO_TYPE: datasets
+  BASE_HF_URL: https://huggingface.co
+
+
+jobs:
+  setup:
+    name: setup
+    runs-on: ubuntu-latest
+    outputs:
+      targets: ${{ steps.setup.outputs.targets }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: setup model
+        id: setup
+        run: |
+          #!/bin/bash
+          # 读取文本文件的每一行数据
+          lines=()
+          while IFS= read -r line; do
+            # 不以# 开始且不为空
+            if [[ -n "$line" && ${line:0:1} != "#" ]]; then
+              lines+=("$line")
+            fi 
+          done < "${{ env.TO_GET_FILE }}"
+          
+          # 将数组转换为 JSON 格式
+          json_array=$(printf '%s\n' "${lines[@]}" | jq -R .| jq -s .)
+          targets_str="$(echo "$json_array" | jq -c .)"
+          echo "targets=${targets_str}" >> "$GITHUB_OUTPUT"
+          
+      - name: debug output
+        run: |
+          echo "last step output: ${{steps.setup.outputs.targets}}"
+  build:
+    name: build and push
+    needs: setup
+    strategy:
+      matrix:
+        target: ${{ fromJson(needs.setup.outputs.targets) }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: hgfkeep
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: parse repo last name
+        id: resolve_param
+        run: |
+          #!/bin/bash
+          echo "repo_id_name=$( echo ${{ matrix.target }} | sed 's/\//--/g' )" >> "$GITHUB_OUTPUT"
+          
+          url="${{ env.BASE_HF_URL }}"
+          if [ "$REPO_TYPE" == "datasets" ]; then
+            url="$url/datasets"
+          fi
+          url="$url/${{ matrix.target }}"
+          echo "repo_url=$url" >> "$GITHUB_OUTPUT"
+          
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+        with:
+          context: ./get_hf
+          file: Dockerfile
+          build-args: REPO_URL=${{ steps.resolve_param.outputs.repo_url}}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.REGISTRY }}/hgfkeep/${{ env.REPO_TYPE }}:${{ steps.resolve_param.outputs.repo_id_name}}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
+          
+      - name: clean to_get targets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+        run: |
+          #!/bin/bash
+          echo "" > ${{ env.TO_GET_FILE}}
+          echo "- [X] ${{matrix.target}}" > "${{ env.REPO_TYPE}}.md"
+          
+          git config --global user.email "heguangfu21@mails.ucas.ac.cn"
+          git config --global user.name "gfhe"
+          git add ${{ env.TO_GET_FILE}} "${{ env.REPO_TYPE}}.md"
+          git commit -m "ADD ${{ env.REPO_TYPE}}: ${{matrix.target}}"
+          git push origin main
+          echo "git push successful"

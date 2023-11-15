@@ -1,0 +1,37 @@
+# syntax=v1
+
+def vllm():
+    install.conda()
+    install.python()
+    install.apt_packages(name=["git", "build-essential"])
+    install.python_packages(name=[
+        "torch",
+        "sentencepiece", 
+        "transformers", 
+        "autoawq",
+        "xformers",
+        "fschat", 
+        "accelerate", 
+        "ray", 
+        "pandas", 
+        "numpy", 
+        "huggingface_hub", 
+        "ninja", 
+        "psutil", 
+        "pyarrow", 
+        "fastapi", 
+        "uvicorn[standard]", 
+        "'pydantic<2'", 
+        "vllm"
+        ])
+    # install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
+
+
+def build():
+    # this comes with dev tools
+    base(image="nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04", dev=True)
+    vllm()
+
+def serving():
+    base(image="nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04")
+    vllm()

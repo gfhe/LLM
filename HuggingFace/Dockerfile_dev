@@ -1,0 +1,27 @@
+FROM hgfkeep/llm:hf-cuda11.8-torch11.4
+
+# 安装packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+     zsh net-tools openssh-server && \
+    mkdir /var/run/sshd
+RUN sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN sed -i 's/ZSH_THEME="robbyrbob"/ZSH_THEME="ys"/g' ~/.zshrc
+
+# 设置 root 密码
+RUN echo 'root:hgfgood' | chpasswd
+# 允许 root 用户远程登录
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+# 允许 SSH 连接
+EXPOSE 22
+
+# 安装开发库
+COPY dev_requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt && \
+    rm -rf /tmp/requirements.txt
+COPY jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
+
+# jupyterlab 默认的端口
+EXPOSE 8888
+
+# 启动 SSH 服务
+CMD ["/usr/sbin/sshd", "-D"]

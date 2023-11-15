@@ -1,0 +1,16 @@
+# syntax=v1
+def build():
+  base(image="nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04", dev=True)
+  install.python(version="3.10")
+  install.conda()
+  install.conda_packages(name = ["yarn", "nodejs>=18.16.0" ], channel = ["conda-forge"])
+  install.python_packages(name = [
+    "accelerate>=0.21.0",
+    "lmql[hf]",
+    "torch>=1.13.1",
+    "transformers==4.33.2",
+    "sentencepiece",
+    "protobuf",
+  ])
+  
+  config.jupyter(token="hgfgooda", port=7890)

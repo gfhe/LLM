@@ -1,0 +1,3 @@
+FROM hgfkeep/llm:hf-cuda11.8-torch11.4
+
+RUN pip install --no-cache-dir llama-cpp-python

@@ -1,0 +1,14 @@
+# syntax=v1
+# 必须在第一行增加 # syntax=v1 支持v1版本语法
+# example 
+#v1
+def build():
+  base(image="ubuntu:20.04", dev=True)
+  install.conda()
+  install.python()
+  # Configure the pip index if needed.
+  # config.pip_index(url = "https://pypi.tuna.tsinghua.edu.cn/simple")
+  install.python_packages(name = [
+        "numpy",
+    ])
+  shell("zsh")
