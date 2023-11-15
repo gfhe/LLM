@@ -33,14 +33,16 @@ jobs:
         id: setup
         run: |
           #!/bin/bash
-          # 读取文本文件的每一行数据
           lines=()
-          while IFS= read -r line; do
-            # 不以# 开始且不为空
-            if [[ -n "$line" && ${line:0:1} != "#" ]]; then
-              lines+=("$line")
-            fi 
-          done < "${{ env.TO_GET_FILE }}"
+          # 读取文本文件的每一行数据
+          mapfile -t lines < "${{ env.TO_GET_FILE }}"
+          for line in "${lines[@]}"
+          do
+              # 在这里处理每一行的数据
+              if [[ -n "$line" && ${line:0:1} != "#" ]]; then
+                lines+=("$line")
+              fi 
+          done
           
           # 将数组转换为 JSON 格式
           json_array=$(printf '%s\n' "${lines[@]}" | jq -R .| jq -s .)

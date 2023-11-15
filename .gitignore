@@ -164,3 +164,4 @@ libs/
 pip_offline/lib.tar.gz
 
 *.whl
+test*
