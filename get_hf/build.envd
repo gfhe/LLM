@@ -1,0 +1,21 @@
+# syntax=v1
+
+def dependency():
+    install.python(version="3.10")
+    install.python_packages(name = [
+        "huggingface_hub"
+    ])
+
+def build():
+    base(image="ubuntu:22.04", dev=True)
+    dependency()
+    
+def runtime():
+    base(image="ubuntu:22.04", dev=False)
+    dependency()
+    install.apt_packages(name = [
+        "git",
+        "git-lfs",
+        "curl",
+        "wget"
+    ])

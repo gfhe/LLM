@@ -82,6 +82,18 @@
     1. 成功搬运的模型： [`models.md`](./models.md) 
     2. 成功搬运的数据集： [`datasets.md`](./datasets.md) 
 
+### 定制化搬运方法
+
+修改 `get_hf/prepare.sh`。
+
+1. 输入的数据为 `REPO_URL`
+2. 环境默认带有 `git huggingface_hub huggingface_cli curl wget`
+3. 所有需要保留的数据存储到 `/x` 文件夹，在第二阶段构建镜像时会将此目录下所有数据复制到 `/REPO`
+
+主要的使用场景包括：
+1. 部分模型仓库中包含了多种序列化方法的权重，我们只需要选择一种即可，不需要每种都复制下来。
+2. 使用命令行工具下载其他数据，甚至不限于huggingface上的数据。
+
 ### 获取方法
 
 1. 下载镜像。
