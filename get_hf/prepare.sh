@@ -24,6 +24,7 @@ repo_id="$repo_namespace/$repo_name"
 # custome process
 # !!!!! comment default process first!!!!!!
 # !!!!!!注释掉默认的处理过程!!!!!!
+# !!!!!!使用huggingface_cli时，加 --quiet，否则容易 log 过大而崩溃!!!!!!
 # 使用例子参考： get_hf/prepare-demo.sh
 ##################################################
-huggingface-cli download $repo_id --exclude=*.bin --local-dir-use-symlinks=False --local-dir=$DEST_PATH
+huggingface-cli download $repo_id --exclude=*.bin --local-dir-use-symlinks=False --local-dir=$DEST_PATH --quiet

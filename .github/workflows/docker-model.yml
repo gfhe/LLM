@@ -136,6 +136,7 @@ jobs:
           # custome process
           # !!!!! comment default process first!!!!!!
           # !!!!!!注释掉默认的处理过程!!!!!!
+          # !!!!!!使用huggingface_cli时，加 --quiet，否则容易 log 过大而崩溃!!!!!!
           # 使用例子参考： get_hf/prepare-demo.sh
           ##################################################
 
