@@ -38,6 +38,8 @@ jobs:
           mapfile -t lines < "${{ env.TO_GET_FILE }}"
           for line in "${lines[@]}"
           do
+              # trim line
+              line=$(echo $line |sed -e 's/^[[:space:]]*//')
               # 在这里处理每一行的数据
               if [[ -n "$line" && ${line:0:1} != "#" ]]; then
                 lines+=("$line")
