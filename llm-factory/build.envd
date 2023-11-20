@@ -34,7 +34,6 @@ def build():
     "huggingface_hub",
   ])
   shell("zsh")
-  config.repo(url="hgfkeep/vllm-factory:0.2-dev", description="vllm factory dev env, cudnn8, python3.10")
 
 def serve():
   base(image="nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04", dev=False)
@@ -47,4 +46,4 @@ def serve():
     "fastapi==0.95.1",
     "sse-starlette",
   ])
-  config.repo(url="hgfkeep/vllm-factory:0.2-runtime", description="vllm factory runtime env, cudd8, python3.10")
+

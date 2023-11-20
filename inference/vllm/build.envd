@@ -22,14 +22,15 @@ def vllm():
         "fastapi", 
         "uvicorn[standard]", 
         "'pydantic<2'", 
-        "vllm"
+        # pip vllm only support nvidia toolkit 11.8, 不支持12.X驱动，
+        # "vllm"
         ])
-    # install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
-
+    install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
 
 def build():
     # this comes with dev tools
     base(image="nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04", dev=True)
+    shell("zsh")
     vllm()
 
 def serving():
