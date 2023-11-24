@@ -1,0 +1,21 @@
+# syntax=v1
+def dependencies():
+  install.python(version="3.10")
+  install.python_packages(name = [
+    "langchain",
+    "langserve[all]",
+  ])
+  config.jupyter(token="hgfgood", port=8000)
+
+def build():
+  base(image="ubuntu:22.04", dev=True)
+  dependencies()
+  install.python_packages(name = [
+    "jieba",
+    "gradio==3.38.0",
+    "pydantic==1.10.11",
+    "matplotlib",
+    "huggingface_hub",
+  ])
+  shell("zsh")
+

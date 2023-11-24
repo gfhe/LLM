@@ -1,11 +1,8 @@
 #!/bin/bash
 
+apt install -y python3-pip
 pip install --upgrade pip
 pip install envd
-envd build 
-docker tag llm-factory:dev hgfkeep/vllm-factory:0.2-dev
-docker push hgfkeep/vllm-factory:0.2-dev
 
-envd build -f :serve
-docker tag llm-factory:dev hgfkeep/vllm-factory:0.2-runtime
-docker push hgfkeep/vllm-factory:0.2-runtime
+envd build --output type=image,name=docker.io/hgfkeep/vllm-factory:0.2-dev,push=true
+envd build -f :serve --output type=image,name=docker.io/hgfkeep/vllm-factory:0.2-runtime,push=true

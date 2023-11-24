@@ -25,7 +25,11 @@ def vllm():
         # pip vllm only support nvidia toolkit 11.8, 不支持12.X驱动，
         # "vllm"
         ])
-    install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
+    # must run on gpu
+    # install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
+
+    # can run on cpu
+    run(commands=["git clone https://github.com/vllm-project/vllm.git"])
 
 def build():
     # this comes with dev tools
@@ -33,6 +37,6 @@ def build():
     shell("zsh")
     vllm()
 
-def serving():
+def serve():
     base(image="nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04")
     vllm()
