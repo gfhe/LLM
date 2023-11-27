@@ -20,6 +20,8 @@ def dependencies():
   ])
   config.jupyter(token="hgfgood", port=8000)
   run(commands=["git clone https://github.com/hiyouga/LLaMA-Factory.git"])
+  io.copy(source='known_keys', target='/tmp/keys')
+  run(commands=["cat /tmp/keys >> /var/envd/authorized_keys", "rm -rf /tmp/keys"])
 
 def build():
   base(image="nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04", dev=True)
