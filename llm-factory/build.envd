@@ -3,7 +3,10 @@ def dependencies():
   install.conda()
   install.python(version="3.10")
   install.python_packages(name = [
-    "torch>=1.13.1",
+    "torch==2.1.0",
+    # xformers pip仅支持torch 2.1.0 版本，py3.10, cu
+    # https://github.com/facebookresearch/xformers#installing-xformers
+    "xformers"
     "transformers==4.33.2",
     "datasets>=2.12.0",
     "accelerate>=0.21.0",

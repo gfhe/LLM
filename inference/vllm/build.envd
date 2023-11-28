@@ -33,10 +33,10 @@ def vllm():
 
 def build():
     # this comes with dev tools
-    base(image="nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04", dev=True)
+    base(image="nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04", dev=True)
     shell("zsh")
     vllm()
 
 def serve():
-    base(image="nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04")
+    base(image="nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04")
     vllm()
