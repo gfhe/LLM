@@ -1,4 +1,5 @@
 # syntax=v1
+lib = include('https://github.com/gfhe/envdlib')
 
 def vllm():
     install.conda()
@@ -33,10 +34,10 @@ def vllm():
 
 def build():
     # this comes with dev tools
-    base(image="nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04", dev=True)
-    shell("zsh")
+    lib.base_cuda11()
+    lib.add_default_key()
     vllm()
 
 def serve():
-    base(image="nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04")
+    lib.base_cuda11(dev=False)
     vllm()

@@ -5,4 +5,4 @@
 # docker push hgfkeep/vllm:cudnn8-torch2.0.1
 # --export-cache type=registry,ref=hgfkeep/vllm:cache --import-cache type=registry,ref=hgfkeep/vllm:cache
 envd build --output type=image,name=docker.io/hgfkeep/vllm:cuda12.2.2-cudnn8-devel,push=true --export-cache type=registry,ref=hgfkeep/vllm:cache --import-cache type=registry,ref=hgfkeep/vllm:cache
-envd build -f :serve --output type=image,name=docker.io/hgfkeep/vllm:cuda12.2.2-cudnn8-runtime,push=true --export-cache type=registry,ref=hgfkeep/vllm:cache-run --import-cache type=registry,ref=hgfkeep/vllm:cache-run
+# envd build -f :serve --output type=image,name=docker.io/hgfkeep/vllm:cuda12.2.2-cudnn8-runtime,push=true --export-cache type=registry,ref=hgfkeep/vllm:cache-run --import-cache type=registry,ref=hgfkeep/vllm:cache-run

@@ -1,4 +1,6 @@
 # syntax=v1
+lib = include('https://github.com/gfhe/envdlib')
+
 def dependencies():
   install.conda()
   install.python(version="3.10")
@@ -6,7 +8,7 @@ def dependencies():
     "torch==2.1.0",
     # xformers pip仅支持torch 2.1.0 版本，py3.10, cu
     # https://github.com/facebookresearch/xformers#installing-xformers
-    "xformers"
+    "xformers",
     "transformers==4.33.2",
     "datasets>=2.12.0",
     "accelerate>=0.21.0",
@@ -21,16 +23,15 @@ def dependencies():
     "bitsandbytes",
     "sse-starlette",
   ])
-  config.jupyter(token="hgfgood", port=8000)
+  lib.jupyter_lab(host_port=8000)
+  lib.add_default_key()
   run(commands=["git clone https://github.com/hiyouga/LLaMA-Factory.git"])
-  io.copy(source='known_keys', target='/tmp/keys')
-  runtime.init(commands=["cat /tmp/keys >> /var/envd/authorized_keys"])
   runtime.daemon(commands=[
     ["python", "LLaMA-Factory/src/train_web.py"]
   ])
 
 def build():
-  base(image="nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04", dev=True)
+  lib.base_cuda12()
   dependencies()
   install.python_packages(name = [
     "fire",
@@ -45,7 +46,7 @@ def build():
   shell("zsh")
 
 def serve():
-  base(image="nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04", dev=False)
+  lib.base_cuda12(dev=False)
   install.apt_packages(name = [
     "git"
   ])
