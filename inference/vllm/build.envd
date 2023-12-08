@@ -27,10 +27,10 @@ def vllm():
         # "vllm"
         ])
     # must run on gpu
-    # install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
+    install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
 
     # can run on cpu
-    run(commands=["git clone https://github.com/vllm-project/vllm.git"])
+    # run(commands=["git clone https://github.com/vllm-project/vllm.git"])
 
 def build():
     # this comes with dev tools
