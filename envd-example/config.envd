@@ -1,4 +1,0 @@
-# 个性化envd配置
-# 放到 `~/.config/envd/config.envd`
-config.pip_index(url = "https://pypi.tuna.tsinghua.edu.cn/simple")
-git_config(name="My Name", email="my@email.com", editor="vim")
