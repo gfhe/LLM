@@ -3,7 +3,7 @@ lib = include('https://github.com/gfhe/envdlib')
 
 def vllm():
     install.conda()
-    install.python()
+    install.python(version="3.11")
     install.apt_packages(name=["git", "build-essential"])
     install.python_packages(name=[
         "torch",
@@ -30,7 +30,7 @@ def vllm():
     # install.python_packages(name=["git+https://github.com/vllm-project/vllm.git"])
 
     # can run on cpu
-    run(commands=["git clone https://github.com/vllm-project/vllm.git"])
+    # run(commands=["git clone https://github.com/vllm-project/vllm.git"])
 
 def build():
     # this comes with dev tools
