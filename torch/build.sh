@@ -1,6 +1,6 @@
 #!/bin/bash
 
-versions=(cu118 cu122)
+versions=(cu118 cu121)
 
 buildTorch() {
     local v=$1

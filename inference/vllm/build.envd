@@ -1,16 +1,12 @@
 # syntax=v1
 lib = include('https://github.com/gfhe/envdlib')
 
-def vllm():
-    install.conda()
-    install.python(version="3.11")
-    install.apt_packages(name=["git", "build-essential"])
+def vllm(dev):
+    lib.torch(dev=dev)
     install.python_packages(name=[
-        "torch",
         "sentencepiece", 
         "transformers", 
         "autoawq",
-        "xformers",
         "fschat", 
         "accelerate", 
         "ray", 
@@ -34,10 +30,8 @@ def vllm():
 
 def build():
     # this comes with dev tools
-    lib.base_cuda11()
     lib.add_default_key()
-    vllm()
+    vllm(True)
 
 def serve():
-    lib.base_cuda11(dev=False)
-    vllm()
+    vllm(False)

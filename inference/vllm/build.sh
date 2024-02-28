@@ -7,9 +7,6 @@
 # docker push hgfkeep/vllm:cudnn8-torch2.0.1
 # --export-cache type=registry,ref=hgfkeep/vllm:cache --import-cache type=registry,ref=hgfkeep/vllm:cache
 
-pip install --upgrade pip
-pip install envd
-
 
 VLLM_VERSION=0.3.2
 envd build --output type=image,name=docker.io/hgfkeep/vllm:${VLLM_VERSION}-dev,push=true --export-cache type=registry,ref=hgfkeep/vllm:cache --import-cache type=registry,ref=hgfkeep/vllm:cache
