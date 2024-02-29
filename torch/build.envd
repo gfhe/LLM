@@ -2,10 +2,11 @@
 lib = include('https://github.com/gfhe/envdlib')
 
 def torch(py_version="3.11", dev=True, cuda_version='118'):
-    install.conda()
-    install.python(version=py_version)
     lib.cuda_s(version=cuda_version, dev=dev)
-    install.apt_packages(name=["git", "build-essential"])
+    install.python(version=py_version)
+    if dev:
+        install.conda()
+        install.apt_packages(name=["git", "build-essential"])
     cmd="pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cu%s" % cuda_version
     run(commands=[cmd])
     
