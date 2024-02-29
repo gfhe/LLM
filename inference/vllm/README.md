@@ -83,7 +83,15 @@ python -m vllm.entrypoints.openai.api_server \
 ## 镜像构建注意
 
 1. 如果需要自己编译vllm，那么需要nvidia devel 版本的镜像。因为vllm 底层使用c++开发，编译需要nvcc支持，runtime的镜像没有。
-2. 如果不自己编译，那么可以查看 [vllm 的release列表](https://github.com/vllm-project/vllm/releases)。注意release的包名中著明了**cuda的版本**（主流cuda11.8）和**python的版本**（主流python3.11）。
+2. 如果不自己编译，那么可以查看 [vllm 的release列表](https://github.com/vllm-project/vllm/releases)。
+  1. 注意release的包名中著明了**cuda的版本**（主流cuda11.8）和**python的版本**（主流python3.11）。
+  2. 注意vllm需要安装对应版本的torch。查看requirements.txt依赖文件中关于torch 版本的定义。
+
+官方编译的vllm依赖关系：
+
+| vllm | cuda | torch |
+| - | - | - |
+| 0.3.2 | 11.8 | 2.1.2 |
 
 ## 参考
 1. [openai_api的接口](https://platform.openai.com/docs/api-reference/completions/create)

@@ -1,14 +1,29 @@
 # syntax=v1
 lib = include('https://github.com/gfhe/envdlib')
 
-def torch(py_version="3.11", dev=True, cuda_version='118'):
-    lib.cuda_s(version=cuda_version, dev=dev)
-    install.python(version=py_version)
+def torch_2_1_2(cuda_version='118'):
+    cmd="pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu%s" % cuda_version
+    run(commands=[cmd])
+
+def torch_latest(cuda_version='118'):
+    cmd="pip install torch  torchvision  torchaudi --index-url https://download.pytorch.org/whl/cu%s" % cuda_version
+    run(commands=[cmd])
+
+def torch(version, py_version="3.11", dev=True, cuda_version='118', cuda_dev=False):
+    install.python(version=py_version)  
     if dev:
         install.conda()
         install.apt_packages(name=["git", "build-essential"])
-    cmd="pip install torch torchvision torchaudio xformers --index-url https://download.pytorch.org/whl/cu%s" % cuda_version
-    run(commands=[cmd])
+    lib.cuda_s(version=cuda_version, dev=dev, cuda_dev=cuda_dev)
+
+    v_str = ""
+    if version == None or version == "latest":
+        torch_latest(cuda_version)
+    elif version =="2.1.2":
+        torch_2_1_2(cuda_version)
+    else:
+        print("not supported torch verison:%s" % version)
+        
     
 def build():
     # this comes with dev tools
@@ -16,14 +31,14 @@ def build():
 
 def torch_dev_cu118():
     lib.add_default_key()
-    torch()
+    torch("2.1.2")
 
 def torch_runtime_cu118():
-    torch(dev=False)    
+    torch("2.1.2",dev=False) 
 
 def torch_dev_cu121():
     lib.add_default_key()
-    torch(cuda_version='121')
+    torch("2.1.2", cuda_version='121') 
 
 def torch_runtime_cu121():
-    torch(dev=False, cuda_version='121')
+    torch("2.1.2", dev=False, cuda_version='121')
