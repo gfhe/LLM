@@ -35,7 +35,7 @@ def vllm(dev):
         "fastapi", 
         "uvicorn[standard]", 
         "'pydantic<2'", 
-        "vllm"
+        "vllm==0.3.2"
         ])
 
 def build():
