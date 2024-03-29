@@ -1,27 +1,26 @@
 # syntax=v1
 lib = include('https://github.com/gfhe/envdlib')
 
-def dependencies():
-  install.conda()
-  install.python(version="3.10")
+def dependencies(dev=True):
+  lib.build_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=dev, cuda_version="122")
   install.python_packages(name = [
-    "torch >= 2.1",
     # xformers pip仅支持torch 2.1.0 及以上版本，py3.10, cu12
     # https://github.com/facebookresearch/xformers#installing-xformers
     "xformers",
-    "transformers==4.33.2",
+    "transformers>=4.39.0",
     "datasets>=2.12.0",
-    "accelerate>=0.21.0",
-    "peft>=0.4.0",
-    "trl==0.7.2",
+    "accelerate>=0.28.0",
+    "peft>=0.9.0",
+    "trl>=0.8.1",
     "scipy",
     "sentencepiece",
     "protobuf",
     "tiktoken",
     "deepspeed",
     "torchvision",
-    "bitsandbytes",
+    "bitsandbytes>=0.43.0",
     "sse-starlette",
+    "flash-attn>=2.5.6"
   ])
   lib.jupyter_lab(host_port=8000)
   lib.add_default_key()
@@ -31,15 +30,14 @@ def dependencies():
   ])
 
 def build():
-  lib.base_cuda12()
   dependencies()
   install.python_packages(name = [
     "fire",
     "jieba",
     "rouge-chinese",
     "nltk",
-    "gradio==3.38.0",
-    "pydantic==1.10.11",
+    "'gradio>=3.38.0,<4.0.0'",
+    "pydantic",
     "matplotlib",
     "huggingface_hub",
   ])

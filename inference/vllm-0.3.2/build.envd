@@ -1,0 +1,47 @@
+# syntax=v1
+lib = include('https://github.com/gfhe/envdlib')
+
+def build_torch(version, py_version="3.11", dev=True, cuda_version='118', cuda_dev=False):
+    install.python(version=py_version)  
+    if dev:
+        install.conda()
+        install.apt_packages(name=["git", "build-essential"])
+    lib.cuda_s(version=cuda_version, dev=dev, cuda_dev=cuda_dev)
+
+    v_str = ""
+    if version != None and version != "latest":
+        v_str = "==%s" % version
+
+    cmd="pip install torch%s torchvision%s torchaudio%s xformers --index-url https://download.pytorch.org/whl/cu%s" % (v_str, v_str, v_str, cuda_version)
+
+def vllm(dev):
+    if dev:
+        build_torch(None, cuda_dev=True, cuda_version="121")
+    else:
+        build_torch("2.1.2", cuda_version="121")
+    install.python_packages(name=[
+        "sentencepiece", 
+        "transformers", 
+        "autoawq",
+        "fschat", 
+        "accelerate", 
+        "ray", 
+        "pandas", 
+        "numpy", 
+        "huggingface_hub", 
+        "ninja", 
+        "psutil", 
+        "pyarrow", 
+        "fastapi", 
+        "uvicorn[standard]", 
+        "'pydantic<2'", 
+        "vllm==0.3.2"
+        ])
+
+def build():
+    # this comes with dev tools
+    lib.add_default_key()
+    vllm(True)
+
+def serve():
+    vllm(False)
