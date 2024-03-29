@@ -2,7 +2,7 @@
 lib = include('https://github.com/gfhe/envdlib')
 
 def vllm(dev):
-    lib.build_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=True, cuda_version="121")
+    lib.install_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=True, cuda_version="121")
 
     install.python_packages(name=[
         "sentencepiece", 

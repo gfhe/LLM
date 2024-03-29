@@ -2,7 +2,7 @@
 lib = include('https://github.com/gfhe/envdlib')
 
 def dependencies(dev=True):
-  lib.build_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=dev, cuda_version="122")
+  lib.install_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=dev, cuda_version="122")
   install.python_packages(name = [
     # xformers pip仅支持torch 2.1.0 及以上版本，py3.10, cu12
     # https://github.com/facebookresearch/xformers#installing-xformers
@@ -20,7 +20,9 @@ def dependencies(dev=True):
     "torchvision",
     "bitsandbytes>=0.43.0",
     "sse-starlette",
-    "flash-attn>=2.5.6"
+    "flash-attn>=2.5.6",
+    "einops",
+    "pydantic",
   ])
   lib.jupyter_lab(host_port=8000)
   lib.add_default_key()
@@ -37,11 +39,9 @@ def build():
     "rouge-chinese",
     "nltk",
     "'gradio>=3.38.0,<4.0.0'",
-    "pydantic",
     "matplotlib",
     "huggingface_hub",
   ])
-  shell("zsh")
 
 def serve():
   lib.base_cuda12(dev=False)
@@ -51,6 +51,5 @@ def serve():
   dependencies()
   install.python_packages(name = [
     "uvicorn",
-    "fastapi==0.95.1",
+    "fastapi",
   ])
-
