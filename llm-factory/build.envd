@@ -3,6 +3,7 @@ lib = include('https://github.com/gfhe/envdlib')
 
 def dependencies(dev=True):
   lib.install_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=dev, cuda_version="122")
+  install.python_packages(name = ["packaging"])
   install.python_packages(name = [
     # xformers pip仅支持torch 2.1.0 及以上版本，py3.10, cu12
     # https://github.com/facebookresearch/xformers#installing-xformers
