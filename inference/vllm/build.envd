@@ -6,7 +6,7 @@ def vllm(dev):
 
     install.python_packages(name=[
         "sentencepiece", 
-        "'transformers >= 4.39.1'", 
+        "git+https://github.com/huggingface/transformers", 
         "autoawq",
         "fschat", 
         "accelerate", 
