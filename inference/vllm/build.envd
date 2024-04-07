@@ -2,7 +2,7 @@
 lib = include('https://github.com/gfhe/envdlib')
 
 def vllm(dev):
-    # lib.install_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=True, cuda_version="121")
+    lib.install_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=True, cuda_version="121")
 
     install.python_packages(name=[
         "sentencepiece", 
@@ -24,8 +24,8 @@ def vllm(dev):
         "pynvml==11.5.0",
         "'triton>=2.1.0'",
         "'outlines>=0.0.34'",
-        "cupy-cuda12x==12.1.0",
-        "tiktoken == 0.6.0", # Required for DBRX tokenizer
+        "cupy-cuda12x>=12.1.0",
+        "tiktoken>=0.6.0", # Required for DBRX tokenizer
         "vllm==v0.4.0.post1"
         ])
 
