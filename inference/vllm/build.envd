@@ -2,11 +2,11 @@
 lib = include('https://github.com/gfhe/envdlib')
 
 def vllm(dev):
-    lib.install_torch(version="latest", py_version="3.11", dev = dev, cuda_dev=True, cuda_version="121")
-
+    lib.install_torch(version="2.1.2", py_version="3.11", dev = dev, cuda_dev=True, cuda_version="121")
+    
     install.python_packages(name=[
         "sentencepiece", 
-        "git+https://github.com/huggingface/transformers", 
+        "'transformers >= 4.39.1'", 
         "autoawq",
         "fschat", 
         "accelerate", 
