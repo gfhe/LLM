@@ -18,3 +18,10 @@ def hf():
     "transformers>=4.33.2",
     "datasets>=2.12.0",
   ])
+
+def py37():
+  install.python(version='3.7')
+  lib.add_default_key()
+  io.copy(source='requirements.txt', target='/requirements.txt')
+  io.copy(source='offline-packages.sh', target='/offline-packages.sh')
+  lib.jupyter_lab(host_port=8000)
