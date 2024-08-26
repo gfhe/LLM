@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pip3 install envd
-docker login
+docker login -u hgfkeep
 tag="py311-cu12"
 
 # py37

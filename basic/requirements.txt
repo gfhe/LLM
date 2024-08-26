@@ -1,0 +1,4 @@
+neo4j
+openai==0.28.0
+dotenv
+torch
