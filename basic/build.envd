@@ -16,6 +16,7 @@ def hf():
   basic()
   lib.cuda_s()
   install.python_packages(name = [
+    "torch",
     "transformers>=4.33.2",
     "datasets>=2.12.0",
   ])
