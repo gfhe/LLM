@@ -12,5 +12,5 @@ envd build -f :py37 --output type=image,name=docker.io/hgfkeep/py:37,push=true
 envd build -f :py --output type=image,name=docker.io/hgfkeep/py:${basic},push=true
 
 # hf
-envd build -f :hf --output type=image,name=docker.io/hgfkeep/hf:${tag}-hf,push=true
+envd build -f :hf --output type=image,name=docker.io/hgfkeep/hf:${tag},push=true
 
