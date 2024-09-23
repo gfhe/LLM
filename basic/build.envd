@@ -7,7 +7,7 @@ def basic(py_version="3.11"):
   install.python(version=py_version)
   git_config(name="hgf", email="hgf@mail.io", editor="vim")
   lib.add_default_key()
-  lib.jupyter_lab(t_port=8000)
+  lib.jupyter_lab(envd_port=8080)
 
 def py():
   basic()
