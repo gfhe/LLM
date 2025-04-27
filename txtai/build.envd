@@ -1,0 +1,17 @@
+# syntax=v1
+
+lib = include('https://github.com/gfhe/envdlib')
+  
+
+def build():
+  base(image = "ubuntu:20.04", dev=True)
+  install.python(version="3.12")
+  install.python_packages(name = [
+    "git+https://github.com/neuml/txtai#egg=txtai[graph]",
+    "sentencepiece",
+    "sacremoses",
+    "staticvectors"
+  ])
+  git_config(name="hgf", email="hgf@mail.io", editor="vim")
+  lib.add_default_key()
+  lib.jupyter_lab(envd_port=8080)
