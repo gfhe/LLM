@@ -8,6 +8,8 @@ def build():
   install.python(version="3.12")
   install.python_packages(name = [
     "git+https://github.com/neuml/txtai#egg=txtai[graph]",
+    "huggingface_hub[hf_xet]",
+    "datasets",
     "sentencepiece",
     "sacremoses",
     "staticvectors"
